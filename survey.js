@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Wait until the cart page fully loads
   setTimeout(() => {
     const surveyFormHTML = `
+  document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(() => {
+    const surveyFormHTML = `
       <form id="survey-form" style="padding: 15px; border: 1px solid #ccc; margin-top: 20px;">
         <h3>Your Feedback Matters!</h3>
         <label>How was your shopping experience?</label>
@@ -10,15 +13,22 @@ document.addEventListener("DOMContentLoaded", function () {
       </form>
     `;
 
-    // Find the correct cart container and inject the form
-    const cartContainer = document.querySelector(".cart__contents") || document.querySelector(".cart") || document.querySelector("form[action='/cart']");
+    const cartContainer = document.querySelector(".cart__contents") || 
+                          document.querySelector(".cart") || 
+                          document.querySelector("form[action='/cart']") ||
+                          document.querySelector("[data-cart-container]") ||
+                          document.querySelector("main");
 
     if (cartContainer) {
       cartContainer.insertAdjacentHTML("beforeend", surveyFormHTML);
       console.log("✅ Survey form injected successfully!");
     } else {
-      console.log("❌ Cart container not found! Check class names.");
+      console.log("❌ Cart container not found! Try a different class.");
     }
+
+  }, 3000);
+});
+
 
     // Handle form submission
     document.getElementById("survey-form").addEventListener("submit", function (e) {
