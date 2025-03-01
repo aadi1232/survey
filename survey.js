@@ -1,33 +1,30 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Wait until the cart page fully loads
   setTimeout(() => {
-    const surveyFormHTML = `
-  document.addEventListener("DOMContentLoaded", function () {
-  setTimeout(() => {
-    const surveyFormHTML = `
-      <form id="survey-form" style="padding: 15px; border: 1px solid #ccc; margin-top: 20px;">
-        <h3>Your Feedback Matters!</h3>
-        <label>How was your shopping experience?</label>
-        <input type="text" id="survey-response" placeholder="Type your response..." style="width: 100%; margin-bottom: 10px;"/>
-        <button type="submit">Submit</button>
-      </form>
-    `;
+  const surveyFormHTML = `
+  <form id="survey-form" style="padding: 15px; border: 1px solid #ccc; margin-top: 20px;">
+    <h3>Your Feedback Matters!</h3>
+    <label>How was your shopping experience?</label>
+    <input type="text" id="survey-response" placeholder="Type your response..." style="width: 100%; margin-bottom: 10px;"/>
+    <button type="submit">Submit</button>
+  </form>
+`;
 
-    const cartContainer = document.querySelector(".cart__contents") || 
-                          document.querySelector(".cart") || 
-                          document.querySelector("form[action='/cart']") ||
-                          document.querySelector("[data-cart-container]") ||
-                          document.querySelector("main");
+// Try multiple possible cart container selectors
+const cartContainer = document.querySelector(".cart__contents") || 
+                      document.querySelector(".cart") || 
+                      document.querySelector("form[action='/cart']") ||
+                      document.querySelector("[data-cart-container]") ||
+                      document.querySelector("main");
 
-    if (cartContainer) {
-      cartContainer.insertAdjacentHTML("beforeend", surveyFormHTML);
-      console.log("✅ Survey form injected successfully!");
-    } else {
-      console.log("❌ Cart container not found! Try a different class.");
-    }
+if (cartContainer) {
+  cartContainer.insertAdjacentHTML("beforeend", surveyFormHTML);
+  console.log("✅ Survey form injected successfully!");
+} else {
+  console.log("❌ Cart container not found! Try a different class.");
+}
 
-  }, 3000);
-});
+
 
 
     // Handle form submission
