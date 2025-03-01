@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   function injectSurveyForm() {
+    // Define the survey form
     const surveyFormHTML = `
       <form id="survey-form" style="padding: 15px; border: 1px solid #ccc; margin-top: 20px;">
         <h3>Your Feedback Matters!</h3>
@@ -9,14 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
       </form>
     `;
 
-    // Find the correct container in the Cart Page
+    // Find the correct cart container (Use the one that worked manually)
     const cartContainer = document.querySelector(".cart__contents") || 
                           document.querySelector(".cart") || 
                           document.querySelector("form[action='/cart']") ||
                           document.querySelector("[data-cart-container]") ||
                           document.querySelector("main");
 
-    if (cartContainer && !document.querySelector("#survey-form")) { 
+    if (cartContainer && !document.querySelector("#survey-form")) {
       // Prevent duplicate injections
       cartContainer.insertAdjacentHTML("beforeend", surveyFormHTML);
       console.log("✅ Survey form injected successfully!");
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       const response = document.getElementById("survey-response").value;
 
-      fetch("http://localhost:5000/api/survey/submit", {  // Replace with your backend URL if deployed
+      fetch("http://localhost:5000/api/survey/submit", {  // Change this to your backend URL if deployed
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ response }),
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Keep checking if the cart is loaded every 2 seconds
+  // Keep checking every 2 seconds until the form is injected
   const interval = setInterval(() => {
     injectSurveyForm();
     if (document.querySelector("#survey-form")) {
